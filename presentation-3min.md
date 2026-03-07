@@ -8,7 +8,7 @@ In this platform, users can sign in securely, complete a basic onboarding, uploa
 
 From a technical architecture point of view, we built this as a full-stack system.
 The **frontend** is built using React, TypeScript, Vite, and Tailwind.
-The **backend** is written in Go using the Chi router.
+The **backend** is written in Java using Spring Boot.
 For data and authentication, we use **Supabase**.
 For AI capabilities, we use two flows:
 - Supabase edge-function AI flow for document extraction and tax analysis,
@@ -16,8 +16,8 @@ For AI capabilities, we use two flows:
 
 Now, the workflow:
 First, user authentication happens through Supabase.
-After login, the frontend sends JWT-authenticated requests to the Go backend.
-The backend validates the user token, then reads or updates user data from Supabase tables like profiles, financial_data, documents, and tax_analyses.
+After login, the frontend sends JWT-authenticated requests to the Java backend.
+The backend validates the user token using a custom Security filter, then reads or updates user data from Supabase tables like profiles, financial_data, documents, and tax_analyses.
 
 For document processing, users upload files to Supabase Storage.
 Then the analyze endpoint processes those files and extracts structured values like salary, deductions, and key financial indicators.

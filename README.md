@@ -3,7 +3,8 @@
 TaxSathi is a full-stack tax assistant for FY 2025-26 with:
 
 - React + Vite frontend for onboarding, documents, analysis, and dashboard
-- Go + Chi backend API with Supabase-authenticated routes
+- React + Vite frontend for onboarding, documents, analysis, and dashboard
+- Java + Spring Boot backend API with Supabase-authenticated routes
 - Supabase (Auth, Postgres, Storage) as the primary data layer
 - AI-assisted document extraction and tax strategy via edge-function workflow
 
@@ -11,11 +12,11 @@ TaxSathi is a full-stack tax assistant for FY 2025-26 with:
 
 - Secure authentication with Supabase Auth
 - Guided onboarding and profile completion
-- Document upload and AI-based extraction
+- Document upload and AI-based extraction (Spring Boot multipart support)
 - Financial data capture and tax analysis
 - Regime-aware guidance and tax-saving suggestions
 - Dashboard insights and scheme recommendations
-- TaxBuddy strategy endpoint for quick personalized advice
+- TaxBuddy strategy endpoint for quick personalized advice (Groq LLM)
 
 ## Tech Stack
 
@@ -29,10 +30,11 @@ TaxSathi is a full-stack tax assistant for FY 2025-26 with:
 
 ### Backend
 
-- Go 1.22+
-- Chi router + middleware
-- CORS middleware
-- Supabase REST/Storage integration
+- Java 17+
+- Spring Boot 3.2+
+- Spring Security (JWT filter)
+- Maven
+- Supabase REST/Storage integration (custom client)
 
 ### Infra/Data
 
@@ -45,15 +47,17 @@ TaxSathi is a full-stack tax assistant for FY 2025-26 with:
 ```text
 tax-sathi/
 	src/                 # Frontend app
-	backend/             # Go API server
+	backend-java/        # Java Spring Boot API server
 	supabase/            # Migrations and edge functions
 	docs/                # Internal workflow docs
+	skills/              # Backend architecture docs
 ```
 
 ## Prerequisites
 
 - Node.js 18+ and npm
-- Go 1.22+
+- Java 17+ (JDK)
+- Maven 3.8+
 - Supabase project credentials
 
 ## Environment Setup
@@ -63,12 +67,10 @@ tax-sathi/
 ```dotenv
 VITE_SUPABASE_URL=your_supabase_url
 VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_anon_key
-VITE_API_URL=http://localhost:8080
+VITE_BACKEND_URL=http://localhost:8080
 ```
 
-### 2) Backend env (`backend/.env`)
-
-Use [backend/.env.example](backend/.env.example) as the template.
+### 2) Backend env (`backend-java/.env`)
 
 ```dotenv
 SUPABASE_URL=your_supabase_url
@@ -95,9 +97,8 @@ npm install
 ### 2) Run backend
 
 ```bash
-cd backend
-go mod download
-go run .
+cd backend-java
+mvn spring-boot:run
 ```
 
 Backend default URL: `http://localhost:8080`
@@ -168,21 +169,22 @@ Main consolidated schema:
 
 ## Troubleshooting
 
-### Backend exits immediately
+### Backend fails to start
 
-- Ensure `backend/.env` exists and has valid values.
+- Ensure `backend-java/.env` exists and has valid values.
 - Check if port 8080 is occupied: `ss -ltnp | grep :8080`
+- Run `mvn clean install` to ensure all dependencies are resolved.
 
 ### Frontend loads but API calls fail
 
-- Confirm `VITE_API_URL` points to running backend.
+- Confirm `VITE_BACKEND_URL` points to running backend.
 - Confirm user is authenticated in Supabase.
 - Confirm backend receives JWT in `Authorization` header.
 
 ### CORS errors
 
 - Localhost origins are allowed by backend.
-- For non-local frontend URLs, set `FRONTEND_URL` in `backend/.env`.
+- For non-local frontend URLs, set `FRONTEND_URL` in `backend-java/.env`.
 
 ## Contributing
 

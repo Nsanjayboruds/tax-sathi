@@ -11,7 +11,7 @@ It helps users:
 
 ## 2) Tech stack used
 - Frontend: React + TypeScript + Vite + Tailwind + shadcn/ui
-- Backend: Go (Chi router)
+- Backend: Java (Spring Boot)
 - Database/Auth/Storage: Supabase
 - AI providers:
   - Tax Analysis + Document Analysis: Supabase Edge Functions via Lovable AI Gateway
@@ -19,8 +19,8 @@ It helps users:
 
 ## 3) Core workflow
 1. User signs in with Supabase Auth.
-2. Frontend gets JWT and calls Go backend with `Authorization: Bearer <token>`.
-3. Go middleware validates JWT using Supabase and allows protected routes.
+2. Frontend gets JWT and calls Java backend with `Authorization: Bearer <token>`.
+3. Spring Security filter validates JWT using Supabase and allows protected routes.
 4. Data is read/written in Supabase tables (`profiles`, `financial_data`, `documents`, `tax_analyses`).
 5. AI endpoints are used for document extraction and tax strategy generation.
 
