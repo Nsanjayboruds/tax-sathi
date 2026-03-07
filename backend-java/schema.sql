@@ -1,5 +1,5 @@
-
--- Consolidated Migration to fix schema inconsistencies
+-- Consolidated Schema for TaxSathi
+-- Last Updated: 2026-03-07
 
 -- 1. Create updated_at trigger function
 CREATE OR REPLACE FUNCTION public.update_updated_at()
@@ -14,7 +14,7 @@ $$ LANGUAGE plpgsql SET search_path = public;
 CREATE TABLE IF NOT EXISTS public.profiles (
   id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
   user_id UUID NOT NULL UNIQUE REFERENCES auth.users(id) ON DELETE CASCADE,
-  email TEXT,
+  email TEXT NOT NULL,
   full_name TEXT,
   employment_type TEXT,
   age_group TEXT,
@@ -102,7 +102,6 @@ CREATE TABLE IF NOT EXISTS public.financial_data (
   id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
   financial_year TEXT NOT NULL DEFAULT '2025-26',
-  -- Income fields
   gross_salary NUMERIC DEFAULT 0,
   hra_received NUMERIC DEFAULT 0,
   lta_received NUMERIC DEFAULT 0,
@@ -110,7 +109,6 @@ CREATE TABLE IF NOT EXISTS public.financial_data (
   rental_income NUMERIC DEFAULT 0,
   interest_income NUMERIC DEFAULT 0,
   business_income NUMERIC DEFAULT 0,
-  -- Deduction fields
   deductions_80c NUMERIC DEFAULT 0,
   deductions_80d NUMERIC DEFAULT 0,
   deductions_80e NUMERIC DEFAULT 0,
@@ -120,7 +118,6 @@ CREATE TABLE IF NOT EXISTS public.financial_data (
   deductions_lta NUMERIC DEFAULT 0,
   standard_deduction NUMERIC DEFAULT 75000,
   other_deductions NUMERIC DEFAULT 0,
-  -- Metadata
   raw_data JSONB,
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
   updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
