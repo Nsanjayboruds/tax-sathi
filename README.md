@@ -161,11 +161,11 @@ Authenticated (`Authorization: Bearer <supabase-jwt>`):
 
 ## Database & Migrations
 
-Supabase migrations are in [supabase/migrations](supabase/migrations).
+Supabase migrations are in [backend-java/supabase/migrations](backend-java/supabase/migrations).
 
 Main consolidated schema:
 
-- [supabase/migrations/20260227184500_consolidated_schema.sql](supabase/migrations/20260227184500_consolidated_schema.sql)
+- [backend-java/supabase/migrations/20260227184500_consolidated_schema.sql](backend-java/supabase/migrations/20260227184500_consolidated_schema.sql)
 
 ## Troubleshooting
 

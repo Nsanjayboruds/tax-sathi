@@ -27,6 +27,9 @@ The backend is a stateless REST API that acts as a secure proxy between the Reac
 backend-java/
 ├── pom.xml                              ← Maven build (deps, plugins)
 ├── .env                                 ← Local dev secrets (never commit real keys)
+├── supabase/                            ← Consolidated migrations & edge functions [NEW]
+│   ├── migrations/                      ← SQL schema versions
+│   └── functions/                       ← Deno edge function source
 ├── src/main/resources/
 │   └── application.yml                  ← App config, reads from env vars
 └── src/main/java/com/taxsathi/
